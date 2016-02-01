@@ -5,5 +5,5 @@ if [ -d "ansible-playbook-elk" ]; then
     sudo rm -Rf ansible-playbook-elk
 fi
 git clone https://github.com/kosssi/ansible-playbook-elk.git
-
-cd ansible-playbook-elk/
+sleep 1
+cd ansible-playbook-elk

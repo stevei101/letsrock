@@ -5,4 +5,4 @@ if [ -d "$DIRECTORY" ]; then
     rm -Rf ansible-playbook-elk/
 fi
 git clone https://github.com/kosssi/ansible-playbook-elk.git
-cd "$DIRECTORY"
+cd $DIRECTORY

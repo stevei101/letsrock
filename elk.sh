@@ -1,8 +1,9 @@
 #!/usr/bin/bash
-export DIRECTORY="ansible-playbook-elk/"
-if [ -d "$DIRECTORY" ]; then
+
+if [ -d "$ansible-playbook-elk/" ]; then
     # Control will enter here if $DIRECTORY exists.
     rm -Rf ansible-playbook-elk/
 fi
 git clone https://github.com/kosssi/ansible-playbook-elk.git
-cd $DIRECTORY
+
+cd ansible-playbook-elk/

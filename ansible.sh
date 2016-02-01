@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-ansible-playbook -i "localhost," -c local playbook.yml -vvvv
+ansible-playbook -i "localhost," -c local ansible-playbook-elk/playbook.yml -vvvv

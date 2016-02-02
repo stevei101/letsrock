@@ -8,7 +8,6 @@
       - 22
       - 5000
       - 80
-    vars_file: vars/application-default.yml
 
   vars_files:
     - '{{ vars_file }}'

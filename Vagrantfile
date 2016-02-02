@@ -7,11 +7,12 @@
 # you're doing.
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.box = "puppetlabs/centos-6.6-64-nocm"
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
 
   config.vm.provision "ansible" do |ansible|
-     ansible.playbook = "provision/ansible/playbook.yml"
+     ansible.playbook = "provision/ansible/application.yml"
+     ansible.vault_password_file = ".ansible-vault-workstation-password"
   end
 
   config.vm.provider "virtualbox" do |v|

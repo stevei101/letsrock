@@ -1,0 +1,36 @@
+---   
+- name: ensure required packages are installed
+  yum: name={{item}} state=present
+  with_items:
+    - openssl-devel 
+    - bzip2-devel
+    - libyaml-devel
+    - readline-devel
+    - sqlite-devel
+    - gdbm-devel
+    - xz-devel
+    - gcc
+
+- name: get Python source
+  get_url: url={{ python_url }}
+           dest={{ python_tar_path }}
+
+- name: untar Python source
+  unarchive: src={{ python_tar_path }}
+             dest={{ python_src_dir }}
+             copy=no
+             creates={{ python_src_home }}
+
+- name: get currently installed Python 3 version
+  command: '{{ python_bin_dir }}/python3 --version'
+  ignore_errors: true
+  failed_when: false
+  register: pyver
+
+- name: build and install Python
+  command: '{{ item }} chdir={{ python_src_home }}'
+  when: pyver is not defined or pyver.rc != 0 or pyver.stdout != 'Python {{python_version}}'
+  with_items:
+    - ./configure
+    - make
+    - make install

@@ -1,0 +1,21 @@
+---
+- name: ensure playbook can be run
+  fail: msg="playbook is not supported on this OS"
+  when: ansible_pkg_mgr != "yum"
+
+- name: install packages
+  yum: name={{item}} state=present
+  with_items:
+    - emacs-nox
+    - wget
+    - git
+    - yum-cron
+
+- name: update all packages
+  yum: pkg=* state=latest
+
+- name: ensure ntp is enabled and running
+  service: name=ntpd state=running enabled=yes
+
+- name: ensure yum-cron is enabled and running
+  service: name=yum-cron state=running enabled=yes

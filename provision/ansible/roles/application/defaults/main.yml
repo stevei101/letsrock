@@ -1,0 +1,13 @@
+vm_user: '{{ "ec2-user" if ansible_distribution == "Amazon" else "vagrant"}}'
+venv: '/home/{{ vm_user }}/venv'
+home: '{{ "/home/%s/application" % (vm_user) if ansible_distribution == "Amazon" else "/vagrant" }}'
+create_local_config: true
+version: master
+repo_password: changeme
+aws_access_key: changeme
+aws_secret_key: changeme
+update_repository: false
+force_local_postgres: false
+gunicorn_workers: 9
+debug: false
+

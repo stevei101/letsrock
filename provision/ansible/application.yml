@@ -1,0 +1,17 @@
+---
+- hosts: all
+  sudo: yes
+
+  vars:
+    iptables_allowed_ports:
+      - 22
+      - 5000
+      - 80
+    vars_file: vars/application-default.yml
+
+  vars_files:
+    - '{{ vars_file }}'
+
+  roles:
+    - application
+

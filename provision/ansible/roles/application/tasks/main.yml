@@ -1,0 +1,70 @@
+---
+- name: ensure required packages are installed
+  yum: name={{ item }} state=present
+  with_items:
+    - libxslt-devel
+    - libxml2-devel
+    - freetds
+    - freetds-devel
+    - gcc-c++
+
+- name: enable sftp
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^Subsystem sftp" line="Subsystem sftp internal-sftp"
+  notify: restart sshd
+
+- name: setup virtual env
+  command: /usr/local/bin/pyvenv {{ venv }} creates='{{ venv }}'
+  sudo: yes
+  sudo_user: '{{ vm_user }}'
+
+- name: modify path
+  lineinfile: line='{{ home }}/application'
+              regexp='^{{ home }}/application$'
+              dest='{{ venv }}/lib/python3.4/site-packages/application.pth'
+              state=present
+              create=yes
+
+- name: checkout application
+  git: repo=git@github.com:stevei101/silk.git dest={{ home }} version={{ version }} accept_hostkey=yes key_file=/home/{{ vm_user }}/.ssh/id_rsa
+  sudo: yes
+  sudo_user: '{{ vm_user }}'
+  when: update_repository
+
+- name: install requirements
+  shell: source {{ venv }}/bin/activate && PATH=$PATH:/usr/local/bin pip install -r {{ home }}/requirements.txt
+  sudo: yes
+  sudo_user: '{{ vm_user }}'
+
+- name: create local settings file
+  template: src=local.cfg dest={{ home }}/application/local.cfg
+  when: create_local_config
+  sudo: yes
+  sudo_user: '{{ vm_user }}'
+
+- name: create log directory
+  file: path=/var/log/application group='{{ vm_user }}' owner=nobody state=directory mode=2770
+  sudo: yes
+
+- name: touch log file
+  file: path=/var/log/application/log group='{{ vm_user }}' owner=nobody state=touch mode=0664
+  sudo: yes
+
+- name: create resources directory
+  file: path='{{ home }}/data/resources'
+        state=directory
+        owner='{{ vm_user }}'
+        group='{{ vm_user }}'
+  sudo: yes
+  sudo_user: '{{ vm_user }}'
+
+- name: setup .bash_profile
+  template: src=.bash_profile
+            dest='/home/{{ vm_user }}/.bash_profile'
+            owner='{{ vm_user }}'
+            group='{{ vm_user }}'
+  sudo: yes
+  sudo_user: '{{ vm_user }}'
+
+- name: set permissions for user directory
+  sudo: yes
+  shell: chmod o+rx /home/{{ vm_user}}

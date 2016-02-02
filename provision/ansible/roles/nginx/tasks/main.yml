@@ -1,0 +1,14 @@
+---  
+- name: setup nginx yum repository
+  yum: name=http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm state=present
+  when: ansible_distribution == "CentOS"
+
+- name: ensure required packages are installed
+  yum: name=nginx state=present
+
+- name: Copy nginx configuration
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: ensure nginx is enabled and running
+  service: name=nginx state=running enabled=yes

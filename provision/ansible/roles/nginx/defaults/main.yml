@@ -1,0 +1,4 @@
+# Needs to be 'off' for virtualbox
+nginx_conf_sendfile: 'on'
+nginx_user: '{{ "nobody" if ansible_distribution == "CentOS" else "nginx" }}'
+nginx_group: '{{ "nobody" if ansible_distribution == "CentOS" else "nginx" }}'

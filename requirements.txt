@@ -1,0 +1,5 @@
+Flask==0.10.1
+Flask-Restless==0.15.0
+Jinja2==2.7.3
+PyYAML==3.11
+gunicorn==19.2.1

@@ -1,0 +1,6 @@
+---
+- name: restart gunicorn
+  service: name=cider state=restarted
+
+- name: restart sshd
+  service: name=sshd state=restarted

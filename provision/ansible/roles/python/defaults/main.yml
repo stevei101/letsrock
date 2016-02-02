@@ -1,0 +1,7 @@
+python_version: '3.4.2'
+python_prefix: '/usr/local'
+python_src_dir: '{{ python_prefix }}/src'
+python_bin_dir: '{{ python_prefix }}/bin'
+python_src_home: '{{ python_src_dir }}/Python-{{ python_version }}'
+python_tar_path: '{{ python_src_home }}.tgz'
+python_url: 'https://www.python.org/ftp/python/{{ python_version }}/Python-{{ python_version }}.tgz'

@@ -1,0 +1,9 @@
+- name: test if EPEL is installed
+  command: rpm -q epel-release
+  register: epeltest
+  failed_when: false
+  when: ansible_distribution == "CentOS"
+
+- name: ensure EPEL is installed
+  yum: pkg=http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm state=present
+  when: epeltest is defined and epeltest.rc != 0 or epeltest.stdout != "epel-release-6-8.noarch"

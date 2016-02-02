@@ -1,0 +1,7 @@
+---
+- name: Copy iptables configuration
+  template: src=iptables dest=/etc/sysconfig/iptables
+  notify: restart iptables
+  when: ansible_distribution == "CentOS"
+
+- meta: flush_handlers

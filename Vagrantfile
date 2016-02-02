@@ -12,7 +12,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible" do |ansible|
      ansible.playbook = "provision/ansible/application.yml"
-     ansible.vault_password_file = ".ansible-vault-workstation-password"
   end
 
   config.vm.provider "virtualbox" do |v|

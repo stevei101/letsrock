@@ -1,16 +1,13 @@
 ---
 - hosts: all
   become: yes
-  become_user: vagrant
+  become_user: root
 
   vars:
     iptables_allowed_ports:
       - 22
       - 5000
       - 80
-
-  vars_files:
-    - '{{ vars_file }}'
 
   roles:
     - application

@@ -6,7 +6,6 @@
 - name: install packages
   yum: name={{item}} state=present
   with_items:
-    - emacs-nox
     - wget
     - git
     - yum-cron

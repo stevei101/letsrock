@@ -1,0 +1,4 @@
+java_version: "8"
+java_libjvm_path: "/usr/lib/jvm/java-{{java_version}}-*/jre/lib/*/server/libjvm.so"
+java_libjvm_symlink_path: "/usr/lib/libjvm.so"
+

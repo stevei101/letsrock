@@ -8,7 +8,7 @@ fi
 if [ -f /etc/lsb-release ]; then
     # for ubuntu
     sudo apt-get update; sudo apt-get -y upgrade;
-    sudo apt-get install -y wget build-essential libssl-dev libffi-dev python-devi
+    sudo apt-get install -y git wget build-essential gcc libssl-dev libffi-dev python-dev
 fi
 
 wget https://bootstrap.pypa.io/get-pip.py

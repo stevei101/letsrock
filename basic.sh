@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 if [ -f /etc/redhat-release ]; then
     # for centos 
     sudo yum update;

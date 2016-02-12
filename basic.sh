@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ -f /etc/redhat-release ]; then
     # for centos 
     sudo yum update;
@@ -11,6 +11,7 @@ if [ -f /etc/lsb-release ]; then
     sudo apt-get install -y git wget build-essential gcc libssl-dev libffi-dev python-dev
 fi
 
-wget https://bootstrap.pypa.io/get-pip.py
+curl -O https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
-sudo pip install cryptography ansible
+sudo pip install pyopenssl ndg-httpsclient pyasn1 cryptography ansible
+
